@@ -254,7 +254,7 @@ Quatre conteneurs ont été créés :
 ## 1. Cloner le projet
 
 ```bash
-git clone https://github.com/emf/clinique-plus.git
+git clone https://github.com/emfall2015/clinique-plus.git
 cd clinique-plus
 ```
 
