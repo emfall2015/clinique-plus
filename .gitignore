@@ -1,0 +1,65 @@
+/Back/node_modules/
+/Back/.env
+/Back/README.md
+
+
+# Compiled output
+/Front/dist
+/Front/tmp
+/Front/out-tsc
+/Front/bazel-out
+
+# Node
+/Front/node_modules
+/Front/npm-debug.log
+/Front/yarn-error.log
+
+# IDEs and editors
+/Front/.idea/
+/Front/.project
+/Front/.classpath
+/Front/.c9/
+/Front/*.launch
+/Front/.settings/
+/Front/*.sublime-workspace
+
+# Visual Studio Code
+/Front/.vscode/*
+!/Front/.vscode/settings.json
+!/Front/.vscode/tasks.json
+!/Front/.vscode/launch.json
+!/Front/.vscode/extensions.json
+!/Front/.vscode/mcp.json
+/Front/.history/*
+
+# Miscellaneous
+/Front/.angular/cache
+/Front/.sass-cache/
+/Front/connect.lock
+/Front/coverage
+/Front/libpeerconnection.log
+/Front/testem.log
+/Front/typings
+/Front/__screenshots__/
+
+# System files
+/Front/.DS_Store
+/Front/Thumbs.db
+
+#
+/Front/environments/
+/Front/README.md
+
+
+## 
+
+/python-service/datalake/datalake.db
+/python-service/__pycache__/
+/python-service/.env
+/python-service/nuits/
+/python-service/raw/traite/
+/python-service/models/
+/python-service/datalake.db
+/python-service/base_analytique/*.db
+/python-service/base_analytique/*.db-journal
+/python-service/patients/
