@@ -1,0 +1,102 @@
+services:
+
+  # =========================================================
+  # FRONTEND ANGULAR
+  # =========================================================
+  angular-app:
+    image: emf/clinique-plus-front:1.0.0
+    container_name: angular-app
+
+    ports:
+      - "8082:8082"
+
+    restart: unless-stopped
+
+    depends_on:
+      - clinique-plus-api
+
+
+  # =========================================================
+  # BACKEND GATEWAY EXPRESS / NODE.JS
+  # =========================================================
+  clinique-plus-api:
+    image: emf/clinique-plus-api:1.0.0
+    container_name: clinique-plus-api
+
+    ports:
+      - "9002:3000"
+
+    # env_file:
+    #   - ./Back/.env
+
+    environment:
+      DB_HOST: db-api
+      DB_PORT: 3306
+
+      PATH_ETL: python/main.py
+      PATH_RESULT_NUIT_IA: python/base_analytique/angular_resultats_nuit_avec_ia.py
+
+      PYTHON_SERVICE_URL: http://python-service:8000
+
+    depends_on:
+      db-api:
+        condition: service_healthy
+      python-service:
+        condition: service_started
+
+    restart: unless-stopped
+
+
+  # =========================================================
+  # BASE DE DONNÉES MYSQL
+  # =========================================================
+  db-api:
+    image: emf/clinique-plus-db:1.0.0
+    container_name: clinique-plus-db
+
+    # env_file:
+    #   - ./Back/.env
+
+    environment:
+      MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
+      MYSQL_DATABASE: ${DB_NAME}
+
+    volumes:
+      - db_data:/var/lib/mysql
+
+    healthcheck:
+      test:
+        [
+          "CMD-SHELL",
+          "mysqladmin ping -h 127.0.0.1 -u root -p$${DB_PASSWORD} --silent"
+        ]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+      start_period: 20s
+
+    restart: unless-stopped
+
+
+  # =========================================================
+  # MICROSERVICE PYTHON / FASTAPI / IA
+  # =========================================================
+  python-service:
+    image: emf/clinique-plus-python:1.0.0
+    container_name: python-service
+
+    # env_file:
+    #   - ./python-service/.env
+
+    expose:
+      - "8000"
+
+    restart: unless-stopped
+
+
+# =========================================================
+# VOLUMES
+# =========================================================
+
+volumes:
+  db_data:
